@@ -29,7 +29,7 @@ int main(){
   //assign values to the server address
   serverAddress.sin_family = AF_INET; //IPv4 family of addresses
   serverAddress.sin_port = htons(PORTNUM); //assign port number to listen for connection
-  serverAddress.sin_addr.s_addr = INADDR_ANY;
+  serverAddress.sin_addr.s_addr = INADDR_ANY; //evaluates to local IP address: 0.0.0.0
 
 
   //bind the socket 'serverSocket' with IP address specified in serverAddress struct
@@ -38,11 +38,41 @@ int main(){
 
   //make server open for listening to requests
   //use 'listen()': params ==> 'socket' to listen at for connection requests
-  //, backlog == max length of pending connections
+  //, backlog ==> max length of pending connections
   listen(serverSocket, MAXBACKLOG);
 
+  //a server shold always be listening for connections requests
+
+  while(1){
+
+    //store the client's address details
+    struct sockaddr_in clientAddress;
+    socklen_t clientAddrSize = sizeof(clientAddress);
+
+    //finally, create the socket to establish connection between server and client
+    //use the 'accept()' function
+    int connectionSocket = accecpt(serverSocket, (struct sockaddr *) &clientAddress, &clientAddrSize);
 
 
+    //wil need an input buffer to store client's data
+    char clientInput[800]
+    memset(clientInput, '\0', sizeof(clientInput));
+
+    //so the server will need to read data from connectionSocket
+    //use the read() function
+    int readData = read(connectionSocket, clientInput, sizeof(clientInput));
+
+    //check user's data
+
+    //process the server's response to the client
+
+
+    //once done with everything close the connection socket
+    close(connectionSocket);
+  }
+
+  //if loop terminates ==> terminate server operation
+  close(serverSocket);
 
   return 0;
 }
