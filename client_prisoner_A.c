@@ -32,17 +32,18 @@ int main(){
   serverAddress.sin_port = PORTNUM;
   serverAddress.sin_addr.s_addr = INADDR_ANY;
 
- //connect client via socket
- int clientConnect = connect(clientServerSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
+  //connect client via socket
+  int clientConnect = connect(clientServerSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
 
- //write the user's data to the server: use 'write()' functtion
+  //write the user's data to the server: use 'write()' functtion
 
 
- //read the server's responseL use 'read()' function
+  //read the server's responseL use 'read()' function
 
- //print out the response
+  //print out the response
 
- //terminate the connection
- close(clientServerSocket);
+  //terminate the connection
+  close(clientServerSocket);
+  
   return 0;
 }
