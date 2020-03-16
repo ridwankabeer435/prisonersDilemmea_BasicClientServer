@@ -10,6 +10,11 @@
 
 #define PORTNUM 3030;
 
+void validateUserInput(char input[]){
+
+
+}
+
 int main(){
 
   //get input and process it
@@ -36,13 +41,13 @@ int main(){
  int clientConnect = connect(clientServerSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
 
  //write the user's data to the server: use 'write()' functtion
-
+ write(clientServerSocket, userInput, strlen(userInput));
 
  //read the server's responseL use 'read()' function
-
+read(clientServerSocket, userInput, sizeof(userInput));
  //print out the response
-
  //terminate the connection
+
  close(clientServerSocket);
   return 0;
 }

@@ -55,18 +55,19 @@ int main(){
 
 
     //wil need an input buffer to store client's data
-    char clientInput[800]
+    char clientInput[800];
     memset(clientInput, '\0', sizeof(clientInput));
 
     //so the server will need to read data from connectionSocket
     //use the read() function
-    int readData = read(connectionSocket, clientInput, sizeof(clientInput));
+    read(connectionSocket, clientInput, sizeof(clientInput));
 
     //check user's data
 
     //process the server's response to the client
 
-
+    //send the response back to the client
+    write(connectionSocket, "You sent me something", sizeof(clientInput));
     //once done with everything close the connection socket
     close(connectionSocket);
   }
