@@ -1,51 +1,47 @@
-/*
-#include <stdio.h>
-#include <stdlib.h>
+/****************** SERVER CODE ****************/
 
+#include <stdio.h>
 #include <sys/socket.h>
-#include <sys/types.h>
-
 #include <netinet/in.h>
-*/
-
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h> 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-
 
 int main(){
-	
-	char server_message[256] = "You have reached the server!";
-	
-	// create the server socket
-	int server_socket;
-	server_socket = socket(AF_INET, SOCK_STREAM, 0);
-	
-	// define the server address
-	struct sockaddr_in server_address;
-	server_address.sin_family = AF_INET;
-	server_address.sin_family = htons(9002);
-	server_address.sin_addr.s_addr = INADDR_ANY;
-	
-	// bind the socket to our specified IP and port
-	bind(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
-	
-	listen(server_socket, 5);
-	
-	int client_socket;
-	client_socket = accept(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
+  int welcomeSocket, newSocket;
+  char buffer[1024];
+  struct sockaddr_in serverAddr;
+  struct sockaddr_storage serverStorage;
+  socklen_t addr_size;
 
-	// send the message
-	send(client_socket, server_message, sizeof(server_message), 0);
-	 
-	// close the socket
-	close(server_socket);
-		
-	return 0;
+  /*---- Create the socket. The three arguments are: ----*/
+  /* 1) Internet domain 2) Stream socket 3) Default protocol (TCP in this case) */
+  welcomeSocket = socket(PF_INET, SOCK_STREAM, 0);
+  
+  /*---- Configure settings of the server address struct ----*/
+  /* Address family = Internet */
+  serverAddr.sin_family = AF_INET;
+  /* Set port number, using htons function to use proper byte order */
+  serverAddr.sin_port = htons(7891);
+  /* Set IP address to localhost */
+  serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+  /* Set all bits of the padding field to 0 */
+  memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);  
+
+  /*---- Bind the address struct to the socket ----*/
+  bind(welcomeSocket, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+
+  /*---- Listen on the socket, with 5 max connection requests queued ----*/
+  if(listen(welcomeSocket,5)==0)
+    printf("Listening\n");
+  else
+    printf("Error\n");
+
+  /*---- Accept call creates a new socket for the incoming connection ----*/
+  addr_size = sizeof serverStorage;
+  newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
+
+  /*---- Send message to the socket of the incoming connection ----*/
+  strcpy(buffer,"Hello World\n");
+  send(newSocket,buffer,13,0);
+
+  return 0;
 }

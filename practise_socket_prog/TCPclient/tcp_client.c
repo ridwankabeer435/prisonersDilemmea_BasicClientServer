@@ -1,54 +1,39 @@
-/*
-#include <stdio.h>
-#include <stdlib.h>
+/****************** CLIENT CODE ****************/
 
-// for socket functions
-#include <sys/types.h>
+#include <stdio.h>
 #include <sys/socket.h>
-
-// to store address information
 #include <netinet/in.h>
-*/
-
-#include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
-#include <sys/types.h> 
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <arpa/inet.h>
-
 
 int main(){
+  int clientSocket;
+  char buffer[1024];
+  struct sockaddr_in serverAddr;
+  socklen_t addr_size;
 
-	// create a socket 
-	int network_socket;
-	network_socket = socket(AF_INET, SOCK_STREAM, 0);
+  /*---- Create the socket. The three arguments are: ----*/
+  /* 1) Internet domain 2) Stream socket 3) Default protocol (TCP in this case) */
+  clientSocket = socket(PF_INET, SOCK_STREAM, 0);
+  
+  /*---- Configure settings of the server address struct ----*/
+  /* Address family = Internet */
+  serverAddr.sin_family = AF_INET;
+  /* Set port number, using htons function to use proper byte order */
+  serverAddr.sin_port = htons(7891);
+  /* Set IP address to localhost */
+  serverAddr.sin_addr.s_addr = inet_addr("127.0.0.1");
+  /* Set all bits of the padding field to 0 */
+  memset(serverAddr.sin_zero, '\0', sizeof serverAddr.sin_zero);  
 
-	// specify an address for the socket
-	struct sockaddr_in server_address;
-	server_address.sin_family = AF_INET;
-	server_address.sin_port = htons(9002);
-	server_address.sin_addr.s_addr = INADDR_ANY;
-	
-	int connection_status = connect(network_socket, (struct  sockaddr *) &server_address, sizeof(server_address));
-	
-	// check for errror with the connection
-	if (connection_status == -1){
-		printf("There was an error making a connection to the remote socket \n\n");
-	}
-	
-	// receive data from the server
-	char server_response[256];
-	recv(network_socket, &server_response, sizeof(server_response), 0);
+  /*---- Connect the socket to the server using the address struct ----*/
+  addr_size = sizeof serverAddr;
+  connect(clientSocket, (struct sockaddr *) &serverAddr, addr_size);
 
-	// print out the server's response
-	printf("The server sent the data: %s", server_response);
-	
-	// and then close the socket
-	close(network_socket);
-	
-	return 0;
+  /*---- Read the message from the server into the buffer ----*/
+  recv(clientSocket, buffer, 1024, 0);
+
+  /*---- Print the received message ----*/
+  printf("Data received: %s",buffer);   
+
+  return 0;
 }
