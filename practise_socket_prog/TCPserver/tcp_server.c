@@ -39,7 +39,7 @@ int main(){
 	listen(server_socket, 5);
 	
 	int client_socket;
-	client_socket = accept(server_socket, NULL, NULL);
+	client_socket = accept(server_socket, (struct sockaddr*) &server_address, sizeof(server_address));
 
 	// send the message
 	send(client_socket, server_message, sizeof(server_message), 0);

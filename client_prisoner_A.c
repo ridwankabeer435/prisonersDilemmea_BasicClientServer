@@ -12,18 +12,25 @@
 
 int main(){
 
-  //get input and process it
-  char userInput[800]; //this will serve as the inpi
+	//get input and process it
+	char userInput; //this will serve as the input
 
-  //validate user input
+	printf("Enter a value: ");
+	scanf("%s", userInput);
 
-  //if valid, then proceed to connect with server
+	//validate user input
+	while(userInput!='B' && userInput!='S'){
+		printf("Wrong data entry. Please re-enter: ");
+		scanf("%s", userInput); 
+	}
+
+ 	//if valid, then proceed to connect with server
 
 
   //while connected to server, listen for responses from server.
 
   //create the socket: use socket()
-  //
+  /*
   int clientServerSocket = socket(PF_INET, SOCKET_STREAM, 0);
 
   //like at server, assign address to server for socket to connect
@@ -44,6 +51,6 @@ int main(){
 
   //terminate the connection
   close(clientServerSocket);
-  
+  */
   return 0;
 }
