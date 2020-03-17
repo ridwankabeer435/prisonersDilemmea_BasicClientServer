@@ -16,12 +16,12 @@ int main(){
 	char userInput; //this will serve as the input
 
 	printf("Enter a value: ");
-	scanf("%s", userInput);
+	scanf("%c", &userInput);
 
 	//validate user input
 	while(userInput!='B' && userInput!='S'){
 		printf("Wrong data entry. Please re-enter: ");
-		scanf("%s", userInput); 
+		scanf("%c", &userInput); 
 	}
 
  	//if valid, then proceed to connect with server
