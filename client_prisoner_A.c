@@ -8,7 +8,7 @@
 #include <netdb.h>
 #include <arpa/inet.h>
 
-#define PORTNUM 3030
+#define PORTNUM 8000
 
 int main(){
 
@@ -33,36 +33,31 @@ int main(){
   //create the socket: use socket()
 
   int clientServerSocket = socket(PF_INET, SOCK_STREAM, 0);
-  if(clientServerSocket == NULL){
-    printf("something is not right -00\n", );
-  }
+
   if(clientServerSocket < 0){
-    printf("Connection socket is not working...\n");
+    fprintf(stderr, "%s", "Connection socket is not working...\n");
   }
 
   //like at server, assign address to server for socket to connect
   struct sockaddr_in serverAddress;
   serverAddress.sin_family = AF_INET;
-  serverAddress.sin_port = PORTNUM;
+  serverAddress.sin_port = htons(PORTNUM);
   serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
-  if(serverAddress == NULL){
-    printf("Something is not right 1\n");
-    return -1;
-  }
+
+
 
   //connect client via socket
   int clientConnect = connect(clientServerSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
-  if(clientConnect == NULL){
-    printf("Somethig is not right 2");
-    return -1;
-  }
-  if(clientConnect < 0){
-    error("error connecting to server");
+
+
+
+	if(clientConnect < 0){
+    fprintf(stderr, "%s", "error connecting to server\n" );
   }
   //write the user's data to the server: use 'write()' functtion
   int n= write(clientServerSocket,userInput,strlen(userInput));
   if(n < 0){
-    error("Error sending data to server");
+    fprintf(stderr, "%s", "Error sending data to server\n");
   }
 
   bzero(userInput, sizeof(userInput));
@@ -71,7 +66,7 @@ int main(){
   //read the server's responseL use 'read()' function
   n = read(clientServerSocket, userInput, sizeof(userInput));
   if(n < 1){
-    error("Error receiving data from server");
+    fprintf(stderr, "%s", "Error receiving data from server\n");
   }
   //print out the response
   printf("%s", userInput);

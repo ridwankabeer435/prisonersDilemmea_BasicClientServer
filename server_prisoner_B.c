@@ -9,7 +9,7 @@
 #include <arpa/inet.h>
 
 //declare a port number to communicate server
-#define PORTNUM 3030
+#define PORTNUM 8000
 #define MAXBACKLOG 5
 
 /*Process server's response inside this function*/
@@ -27,7 +27,7 @@ int main(){
   // we are using TCP stream for client-sercer commumication, default protocol
   int serverSocket = socket(PF_INET, SOCK_STREAM, 0);
   if(serverSocket < 0){
-    herror("ERROR opening socket");
+    fprintf(stderr, "%s","ERROR opening socket\n");
   }
   //assign values to the server address
   bzero((char *) &serverAddress, sizeof(serverAddress));
@@ -41,7 +41,7 @@ int main(){
   //use 'bind()' function
   int binding = bind(serverSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
   if(binding < 0){
-    error("Can't bind socket");
+    fprintf(stderr, "%s","Can't bind socket\n");
   }
 
 
@@ -62,7 +62,7 @@ int main(){
     //use the 'accept()' function
     int connectionSocket = accept(serverSocket, (struct sockaddr *) &clientAddress, &clientAddrSize);
     if(connectionSocket < 0){
-      error("Can't accept client request");
+      fprintf(stderr, "%s","Can't accept client request\n");
     }
 
     //wil need an input buffer to store client's data
@@ -74,7 +74,7 @@ int main(){
     //use the read() function
     int readData = read(connectionSocket, clientInput, sizeof(clientInput));
     if(readData < 0){
-      error("can't read data");
+      fprintf(stderr, "%s","can't read data\n");
     }
 
     //check user's data
@@ -83,7 +83,7 @@ int main(){
     printf("This is what I got %s \n", clientInput);
     int response =  write(connectionSocket,"You sent me something\n",200);
     if(response < 0){
-      error("Error responding to data");
+      fprintf(stderr, "%s","Error responding to data\n");
     }
     //once done with everything close the connection socket
     close(connectionSocket);
