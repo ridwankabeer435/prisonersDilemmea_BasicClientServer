@@ -7,7 +7,8 @@
 
 int main(){
   int welcomeSocket, newSocket;
-  char buffer[1024];
+  char bufferChoice[1024];
+  char bufferMess[1024];
   struct sockaddr_in serverAddr;
   struct sockaddr_storage serverStorage;
   socklen_t addr_size;
@@ -38,10 +39,17 @@ int main(){
   /*---- Accept call creates a new socket for the incoming connection ----*/
   addr_size = sizeof serverStorage;
   newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
+	
+  recv(welcomeSocket, bufferChoice, 1024, 0);
+  if(strcmp(bufferChoice,"B")==0){	
+	strcpy(bufferMess, "We both stay in prison for 2 years");
+  }
+  else{
+ 	strcpy(bufferMess, "I am free. But you stay in jail for 3 years, lol!");
+  }
 
   /*---- Send message to the socket of the incoming connection ----*/
-  strcpy(buffer,"Hello World\n");
-  send(newSocket,buffer,13,0);
+  send(newSocket,bufferMess,1024,0);
 
   return 0;
 }

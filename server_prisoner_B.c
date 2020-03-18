@@ -43,6 +43,18 @@ int main(){
 
   //a server shold always be listening for connections requests
 
+	//algorithm to determine the output given server always chooses to betray
+	/*
+	char message[256];
+	char clientChoice;
+	if(clientChoice=='B'){
+		message = "Both prisoner A and prisoner B stays in jail for 2 years";
+	} 
+	else{
+		message = "Prisoner A stays in jail for 3 years. Prisoner B is set free.";
+	}
+	*/
+
   while(1){
 
     //store the client's address details

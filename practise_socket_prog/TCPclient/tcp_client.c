@@ -6,9 +6,11 @@
 #include <string.h>
 
 int main(){
-  int clientSocket;
-  char buffer[1024];
+  int clientSocket, newSocket;
+  char bufferChoice[1024];
+  char bufferMess[1024];
   struct sockaddr_in serverAddr;
+  struct sockaddr_storage clientStorage;
   socklen_t addr_size;
 
   /*---- Create the socket. The three arguments are: ----*/
@@ -28,12 +30,28 @@ int main(){
   /*---- Connect the socket to the server using the address struct ----*/
   addr_size = sizeof serverAddr;
   connect(clientSocket, (struct sockaddr *) &serverAddr, addr_size);
+  newSocket = accept(clientSocket, (struct sockaddr *) &clientStorage, &addr_size);
 
+  //get input and process it
+  char userInput[1024]; //this will serve as the input
+  
+  printf("Enter a value: ");
+  scanf("%s", &userInput);
+ 
+  //validate user input
+  while(strcmp(userInput,"B")!=0 && strcmp(userInput,"S")!=0 ){
+  	printf("Wrong data entry. Please re-enter: ");
+  	scanf("%s", &userInput); 
+  }
+  
+  strcpy(bufferChoice,"B");
+  send(newSocket,bufferChoice,1024,0); 
+ 
   /*---- Read the message from the server into the buffer ----*/
-  recv(clientSocket, buffer, 1024, 0);
+  recv(clientSocket, bufferMess, 1024, 0);
 
   /*---- Print the received message ----*/
-  printf("Data received: %s",buffer);   
+  printf("Data received: %s",bufferMess);   
 
   return 0;
 }
