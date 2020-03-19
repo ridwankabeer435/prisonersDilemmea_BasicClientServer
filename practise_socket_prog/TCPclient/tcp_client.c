@@ -7,7 +7,7 @@
 
 int main(){
   int clientSocket, newSocket;
-  char bufferChoice[1024];
+  char bufferChoice;
   char bufferMess[1024];
   struct sockaddr_in serverAddr;
   struct sockaddr_storage clientStorage;
@@ -33,18 +33,18 @@ int main(){
   newSocket = accept(clientSocket, (struct sockaddr *) &clientStorage, &addr_size);
 
   //get input and process it
-  char userInput[1024]; //this will serve as the input
+  char userInput; //this will serve as the input
   
   printf("Enter a value: ");
-  scanf("%s", &userInput);
+  scanf("%c", &userInput);
  
   //validate user input
-  while(strcmp(userInput,"B")!=0 && strcmp(userInput,"S")!=0 ){
+  while(userInput!='B' && userInput!='S'){
   	printf("Wrong data entry. Please re-enter: ");
-  	scanf("%s", &userInput); 
+  	scanf("%c", &userInput); 
   }
   
-  strcpy(bufferChoice,"B");
+  bufferChoice = userInput;
   send(newSocket,bufferChoice,1024,0); 
  
   /*---- Read the message from the server into the buffer ----*/

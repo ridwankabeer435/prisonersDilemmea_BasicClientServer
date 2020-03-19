@@ -41,6 +41,7 @@ int main(){
   newSocket = accept(welcomeSocket, (struct sockaddr *) &serverStorage, &addr_size);
 	
   recv(welcomeSocket, bufferChoice, 1024, 0);
+  printf("%s",bufferChoice);
   if(strcmp(bufferChoice,"B")==0){	
 	strcpy(bufferMess, "We both stay in prison for 2 years");
   }
