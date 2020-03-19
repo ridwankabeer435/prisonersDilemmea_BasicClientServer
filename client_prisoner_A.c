@@ -12,15 +12,27 @@
 
 int main(){
 
-	//get input and process it
-	char userInput[250]; //this will serve as the input
+	char intro[800]="";
+	//introduce the program to the user
+	strcat(intro, "Welcome prisoner. You and your inmate have a chance to either\nescape or reduce your sentence in jail.\n Your options are to stay silent or betray your inmate\n");
+	printf("%s", intro);
 
-	printf("Enter a value: ");
+	//get input and process it
+	char userInput[500]; //this will serve as the input
+
+
+	printf("Betray(B) or silence(S): ");
 	fgets(userInput, sizeof(userInput), stdin);
 
 	//validate user input
+	while(strlen(userInput) != 2){
+		printf("Your choice is too wordy. Please enter one character: ");
+		fgets(userInput, sizeof(userInput), stdin);
+	}
+
+
 	while(userInput[0]!='B' && userInput[0]!='S'){
-		printf("Wrong data entry. Please re-enter: ");
+		printf("Choose between silence(S) and betray(B): ");
 		fgets(userInput, sizeof(userInput), stdin);
 	}
 

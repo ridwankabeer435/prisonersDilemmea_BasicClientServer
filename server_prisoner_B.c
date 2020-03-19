@@ -79,9 +79,20 @@ int main(){
 
     //check user's data
 
+	 char *serverResponse;
+
+
+   //generate server's response randomly.
+	    if(clientInput[0]=='B'){
+		      serverResponse = "Both prisoner A and prisoner B stays in jail for 2 years\n";
+	      }
+	       else{
+		         serverResponse = "Prisoner A stays in jail for 3 years. Prisoner B is set free.\n";
+	       }
+
     //process the server's response to the client
     printf("This is what I got %s \n", clientInput);
-    int response =  write(connectionSocket,"You sent me something\n",200);
+    int response =  write(connectionSocket,serverResponse,500);
     if(response < 0){
       fprintf(stderr, "%s","Error responding to data\n");
     }
