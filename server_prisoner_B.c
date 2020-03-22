@@ -85,19 +85,20 @@ int main(){
   int serverDecision = rand() % 2;
   printf("%d\n", serverDecision);
    if(serverDecision < 0.5){ //server stays silent
+     
      if(clientInput[0]=='B'){ //but client betrays
-         serverResponse = "Prisoner B stays in jail for 3 years.\n Prisoner A is released\n";
+         serverResponse = "Prisoner B decided to remain silent.\n\nPrisoner B stays in jail for 3 years.\nPrisoner A is released\n";
        }
         else{ //client is also silent
-            serverResponse = "Both prisoners A and B stay in jail for 1 year\n";
+            serverResponse = "Prisoner B decided to remain silent.\n\nBoth prisoners A and B stay in jail for 1 year\n";
         }
    }
    else{ //server betrays
      if(clientInput[0]=='B'){ //client also betrays
-         serverResponse = "Both prisoners A and B stay in jail for 2 years.\n";
+         serverResponse = "Prisoner B decided to betray.\n\nBoth prisoners A and B stay in jail for 2 years.\n";
        }
         else{ //but client stays silent
-            serverResponse = "Prisoner A stay in jail for 3 years\nPrisoner B is released\n";
+            serverResponse = "Prisoner B decided to betray.\n\nPrisoner A stay in jail for 3 years\nPrisoner B is released\n";
         }
    }
     /*

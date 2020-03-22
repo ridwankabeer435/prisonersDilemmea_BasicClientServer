@@ -23,7 +23,7 @@ int main(){
 	char tryAgainPrompt[200];
 
 	//have a while loop to allow user to try again
-	bool userQuits = true;
+
 
 	while(1){
 
@@ -109,8 +109,7 @@ int main(){
 		}
 		else{
 			//terminate the connection
-			userQuits = false;
-			printf("Best of luck with your choice");
+			printf("Best of luck with your choice\n");
 			close(clientServerSocket);
 			break;
 		}
