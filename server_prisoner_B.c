@@ -9,13 +9,9 @@
 #include <arpa/inet.h>
 
 //declare a port number to communicate server
-#define PORTNUM 8000
+#define PORTNUM 8080
 #define MAXBACKLOG 5
 
-/*Process server's response inside this function*/
-void dilemmaOutcome(){
-
-}
 
 int main(){
 
@@ -58,7 +54,7 @@ int main(){
     struct sockaddr_in clientAddress;
     socklen_t clientAddrSize = sizeof(clientAddress);
 
-    //finally, create the socket to establish connection between server and client
+    //finally, create the socket to establish connectionint) (rand() / (double) (RAND_MAX + 1) between server and client
     //use the 'accept()' function
     int connectionSocket = accept(serverSocket, (struct sockaddr *) &clientAddress, &clientAddrSize);
     if(connectionSocket < 0){
@@ -83,13 +79,30 @@ int main(){
 
 
    //generate server's response randomly.
-	    if(clientInput[0]=='B'){
-		      serverResponse = "Both prisoner A and prisoner B stays in jail for 2 years\n";
-	      }
-	       else{
-		         serverResponse = "Prisoner A stays in jail for 3 years. Prisoner B is set free.\n";
-	       }
+   //if serverDecision == 1 then the server stays silent, else the server betrays
 
+   //rand generator ref: https://www.geeksforgeeks.org/generating-random-number-range-c/
+  int serverDecision = rand() % 2;
+  printf("%d\n", serverDecision);
+   if(serverDecision < 0.5){ //server stays silent
+     if(clientInput[0]=='B'){ //but client betrays
+         serverResponse = "Prisoner B stays in jail for 3 years.\n Prisoner A is released\n";
+       }
+        else{ //client is also silent
+            serverResponse = "Both prisoners A and B stay in jail for 1 year\n";
+        }
+   }
+   else{ //server betrays
+     if(clientInput[0]=='B'){ //client also betrays
+         serverResponse = "Both prisoners A and B stay in jail for 2 years.\n";
+       }
+        else{ //but client stays silent
+            serverResponse = "Prisoner A stay in jail for 3 years\nPrisoner B is released\n";
+        }
+   }
+    /*
+
+         */
     //process the server's response to the client
     printf("This is what I got %s \n", clientInput);
     int response =  write(connectionSocket,serverResponse,500);

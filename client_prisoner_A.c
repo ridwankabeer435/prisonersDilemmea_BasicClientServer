@@ -9,13 +9,13 @@
 #include <arpa/inet.h>
 #include <stdbool.h>
 
-#define PORTNUM 8000
+#define PORTNUM 8080
 
 int main(){
 
 	char intro[800]="";
 	//introduce the program to the user
-	strcat(intro, "Welcome prisoner. You and your inmate have a chance to either\nescape or reduce your sentence in jail.\n Your options are to stay silent or betray your inmate\n");
+	strcat(intro, "Welcome prisoner A. You and your inmate (prisoner B) have a chance to either\nescape or reduce your sentence in jail.\nYour options are to stay silent or betray your inmate\n");
 	printf("%s", intro);
 
 	//get input and process it
