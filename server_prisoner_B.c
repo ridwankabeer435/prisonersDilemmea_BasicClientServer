@@ -9,14 +9,15 @@
 #include <arpa/inet.h>
 
 //declare a port number to communicate server
-#define PORTNUM 8080
+//#define PORTNUM 8080
 #define MAXBACKLOG 5
 
 
-int main(){
+int main(int argc,char *agrv[]){
 
   //have a struct to store IPv4 address (for server: maybe use the local address)
   struct sockaddr_in serverAddress;
+  int portno = atoi(agrv[1]);
 //  socklen_t clientDataLen;
 
   //create the  'socket()' system call
@@ -29,7 +30,7 @@ int main(){
   bzero((char *) &serverAddress, sizeof(serverAddress));
 
   serverAddress.sin_family = AF_INET; //IPv4 family of addresses
-  serverAddress.sin_port = htons(PORTNUM); //assign port number to listen for connection
+  serverAddress.sin_port = htons(portno); //assign port number to listen for connection
   serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1"); //evaluates to local IP address: 0.0.0.0
 
 
@@ -85,7 +86,7 @@ int main(){
   int serverDecision = rand() % 2;
   printf("%d\n", serverDecision);
    if(serverDecision < 0.5){ //server stays silent
-     
+
      if(clientInput[0]=='B'){ //but client betrays
          serverResponse = "Prisoner B decided to remain silent.\n\nPrisoner B stays in jail for 3 years.\nPrisoner A is released\n";
        }

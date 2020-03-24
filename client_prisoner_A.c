@@ -9,9 +9,9 @@
 #include <arpa/inet.h>
 #include <stdbool.h>
 
-#define PORTNUM 8080
+//#define PORTNUM 8080
 
-int main(){
+int main(int argc, char *argv[]){
 
 	char intro[800]="";
 	//introduce the program to the user
@@ -21,7 +21,7 @@ int main(){
 	//get input and process it
 	char userInput[500]; //this will serve as the input
 	char tryAgainPrompt[200];
-
+	int portno = atoi(argv[1]);
 	//have a while loop to allow user to try again
 
 
@@ -60,7 +60,7 @@ int main(){
   	//like at server, assign address to server for socket to connect
   	struct sockaddr_in serverAddress;
   	serverAddress.sin_family = AF_INET;
-  	serverAddress.sin_port = htons(PORTNUM);
+  	serverAddress.sin_port = htons(portno);
   	serverAddress.sin_addr.s_addr = inet_addr("127.0.0.1");
 
 
