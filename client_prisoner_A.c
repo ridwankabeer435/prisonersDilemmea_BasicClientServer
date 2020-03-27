@@ -18,7 +18,6 @@ int main(int argc, char *argv[]){
 
 	//get input and process it
 	char userInput[500]; //this will serve as the input
-	char tryAgainPrompt[200];
 	int portno = atoi(argv[1]);
 	
 	//a while loop to allow user to try again
