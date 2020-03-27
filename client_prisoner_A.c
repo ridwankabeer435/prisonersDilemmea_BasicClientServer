@@ -94,7 +94,7 @@ int main(int argc, char *argv[]){
 		}
 
 		while(userInput[0]!='Y' && userInput[0]!='N'){
-			printf("Try Again. Yes or N (Y/N) Enter one character: ");
+			printf("Try Again. Yes or No (Y/N) Enter one character: ");
 			fgets(userInput, sizeof(userInput), stdin);
 		}
 
