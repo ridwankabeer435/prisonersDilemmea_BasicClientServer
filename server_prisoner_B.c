@@ -14,7 +14,6 @@ int main(int argc,char *agrv[]){
 	//have a struct to store IPv4 address (for server: maybe use the local address)
 	struct sockaddr_in serverAddress;
 	int portno = atoi(agrv[1]);
-	//socklen_t clientDataLen;
 
 	//create the  'socket()' system call
 	//we are using TCP stream for client-sercer commumication, default protocol
@@ -33,7 +32,6 @@ int main(int argc,char *agrv[]){
 
 	//bind the socket 'serverSocket' with IP address specified in serverAddress struct
 	//use 'bind()' function
-	
 	int binding = bind(serverSocket, (struct sockaddr *) &serverAddress, sizeof(serverAddress));
 	
 	if(binding < 0){
@@ -46,7 +44,6 @@ int main(int argc,char *agrv[]){
 	listen(serverSocket, MAXBACKLOG);
 
 	//a server shold always be listening for connections requests
-
 	while(1){
 
 		//store the client's address details
