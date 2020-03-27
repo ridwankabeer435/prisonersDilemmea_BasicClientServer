@@ -42,3 +42,4 @@ Client (any valid port number should work):
 ...where 8080 is port number
 
 (Note: the server code is executed first to make it online)
+(Note2: The connection can be made even though the client and server are on different devices. However, both the devices must have the same IP address. An ideal scenario would be two different devices which are both connected on the Bluenose server.)
