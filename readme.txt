@@ -2,7 +2,7 @@ CSCI 3171 Assignment 3
 
 Members:
   -Ridwan Kabeer (B00849394)
-  -Abdullah Al Mukaddim (B00)
+  -Abdullah Al Mukaddim (B00804319)
 
 Contributions:
 
