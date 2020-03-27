@@ -9,8 +9,6 @@
 #include <arpa/inet.h>
 #include <stdbool.h>
 
-//#define PORTNUM 8080
-
 int main(int argc, char *argv[]){
 
 	char intro[800]="";
@@ -88,6 +86,7 @@ int main(int argc, char *argv[]){
 		printf("Would you like to try again (Y/N): ");
 		fgets(userInput, sizeof(userInput), stdin);
 
+		// input validation checks
 		while(strlen(userInput) != 2){
 			printf("Your choice is too wordy. Please enter 'Y' or 'N': ");
 			fgets(userInput, sizeof(userInput), stdin);
@@ -97,7 +96,7 @@ int main(int argc, char *argv[]){
 			printf("Try Again. Yes or No (Y/N) Enter one character: ");
 			fgets(userInput, sizeof(userInput), stdin);
 		}
-
+		
 		if(userInput[0] == 'Y'){
 
 		}
